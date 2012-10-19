@@ -32,6 +32,7 @@ proyecto Proyecto_crear(char* descripcion) {
 
 	self->descripcion = malloc(strlen(descripcion) + 1);
 	strcpy(self->descripcion, descripcion);
+	self->tareas = NULL;
 
 	return self;
 }

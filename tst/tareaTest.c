@@ -85,13 +85,12 @@ void TestCostoTareaCompuestaSinImpuestos(CuTest* tc) {
 
 void TestCostoProyecto(CuTest* tc) {
 	tarea subirResumenAlSite = Tarea_crear("Subir resumen al site", 10, COMPLEJIDAD_MINIMA);
-	tarea darClase = prepareDarClase();
 	proyecto claseDisenioEstructurado = Proyecto_crear("Disenio estructurado");
-	Proyecto_agregarTarea(claseDisenioEstructurado, darClase);
+	Proyecto_agregarTarea(claseDisenioEstructurado, prepareDarClase());
 	Proyecto_agregarTarea(claseDisenioEstructurado, subirResumenAlSite);
 	float costoClaseDE = Proyecto_costo(claseDisenioEstructurado);
-//	Tarea_destroy(subirResumenAlSite);
-//	Proyecto_destroy(claseDisenioEstructurado);
+	Tarea_destroy(subirResumenAlSite);
+	Proyecto_destroy(claseDisenioEstructurado);
 	CuAssert(tc, "costo de proyecto", costoClaseDE == 650);
 }
 
