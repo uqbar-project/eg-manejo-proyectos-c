@@ -14,8 +14,7 @@ float internalComplejidad_costoBase(int tiempo) {
 	return tiempo * COMPLEJIDAD_COSTO_BASE;
 }
 
-float internalComplejidad_costoBaseComplejidadMaxima(float costoBase,
-		int tiempo) {
+float internalComplejidad_costoBaseComplejidadMaxima(float costoBase, int tiempo) {
 	float result = costoBase * PORCENTAJE_EXTRA_COMPLEJIDAD_MAXIMA;
 	int delayExtra = tiempo - MAXIMO_DIAS_COMPLEJIDAD_MAXIMA;
 	if (delayExtra > 0) {
@@ -28,15 +27,16 @@ float internalComplejidad_costoBaseComplejidadMaxima(float costoBase,
 float Complejidad_costo(enum COMPLEJIDAD complejidad, int tiempo) {
 	float costoBase = internalComplejidad_costoBase(tiempo);
 	switch (complejidad) {
-		case COMPLEJIDAD_MINIMA:
-			return costoBase;
-			break;
-		case COMPLEJIDAD_MEDIA:
-			return costoBase * PORCENTAJE_EXTRA_COMPLEJIDAD_MEDIA;
-			break;
-		default:
-			return internalComplejidad_costoBaseComplejidadMaxima(costoBase, tiempo);
-			break;
+	case COMPLEJIDAD_MINIMA:
+		return costoBase;
+		break;
+	case COMPLEJIDAD_MEDIA:
+		return costoBase * PORCENTAJE_EXTRA_COMPLEJIDAD_MEDIA
+		;
+		break;
+	default:
+		return internalComplejidad_costoBaseComplejidadMaxima(costoBase, tiempo);
+		break;
 	}
 	// Sólo para que no tire warning el compiler
 	return costoBase;

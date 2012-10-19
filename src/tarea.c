@@ -14,6 +14,7 @@
 #include <windef.h>
 #include "list.h"
 #include "tarea.h"
+#include "impuesto.h"
 
 /************************************************************
  * Estructura interna
@@ -22,14 +23,15 @@ typedef struct Tarea {
 	char* descripcion;
 	int tiempo;
 	enum COMPLEJIDAD complejidad;
-	struct node* subtareas;
+	list subtareas;
+	list impuestos;
 } t_tarea;
 
 /************************************************************
  * Funciones privadas de acceso al TAD Tarea
  *************************************************************/
-static t_tarea* internalTarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
-	t_tarea* self = (t_tarea *) malloc(sizeof(t_tarea));
+static tarea internalTarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
+	tarea self = (t_tarea *) malloc(sizeof(t_tarea));
 
 	if (self == NULL) {
 		perror("No se pudo crear la tarea");
@@ -44,66 +46,77 @@ static t_tarea* internalTarea_crear(char* descripcion, int tiempo, t_complejidad
 	return self;
 }
 
-static float internalTarea_costoBase(t_tarea* tarea) {
+static float internalTarea_costoBase(tarea tarea) {
 	return Complejidad_costo(COMPLEJIDAD_MINIMA, tarea->tiempo);
 }
 
 /************************************************************
  * Operaciones primitivas sobre el TAD Tarea
  *************************************************************/
-t_tarea* Tarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
-	t_tarea* tarea = internalTarea_crear(descripcion, tiempo, complejidad);
+tarea Tarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
+	tarea tarea = internalTarea_crear(descripcion, tiempo, complejidad);
 	tarea->subtareas = NULL;
+	tarea->impuestos = NULL;
 	return tarea;
 }
 
-float Tarea_costo(t_tarea* tarea) {
-	float costoTotal = internalTarea_costoBase(tarea);
+float Tarea_costo(tarea unaTarea) {
+	float costoBase = internalTarea_costoBase(unaTarea);
+	float costoTotal = costoBase;
 	int i = 0;
-	int cantidadSubtareas = list_size(tarea->subtareas);
+	int cantidadSubtareas = list_size(unaTarea->subtareas);
 	for (i = 0; i < cantidadSubtareas; i++) {
-		t_tarea* subtarea = list_get(tarea->subtareas, i);
+		tarea subtarea = list_get(unaTarea->subtareas, i);
 		costoTotal = costoTotal + Tarea_costo(subtarea);
 	}
+	int cantidadImpuestos = list_size(unaTarea->impuestos);
+	for (i = 0; i < cantidadImpuestos; i++) {
+		impuesto unImpuesto = list_get(unaTarea->impuestos, i);
+		costoTotal = costoTotal + Impuesto_monto(unImpuesto, costoBase);
+	}
+
 	return costoTotal;
 }
 
-float Tarea_tiempoTotal(t_tarea * tarea) {
-	return tarea->tiempo;
+float Tarea_tiempoTotal(tarea unaTarea) {
+	return unaTarea->tiempo;
 }
 
-char* Tarea_asString(t_tarea* tarea) {
-	return tarea->descripcion;
+char* Tarea_asString(tarea unaTarea) {
+	return unaTarea->descripcion;
 }
 
-void Tarea_destroy(t_tarea* tarea) {
-	if (tarea->subtareas != NULL) {
-		int cantidadTareas = list_size(tarea->subtareas);
+void Tarea_destroy(tarea unaTarea) {
+	if (unaTarea->subtareas != NULL) {
+		int cantidadTareas = list_size(unaTarea->subtareas);
 		int i;
 		for (i = 0; i < cantidadTareas; ++i) {
-			t_tarea* subtarea = list_get(tarea->subtareas, i);
+			tarea subtarea = list_get(unaTarea->subtareas, i);
 			Tarea_destroy(subtarea);
 		}
-		list_destroy(tarea->subtareas);
+		list_destroy(unaTarea->subtareas);
 	}
-	free(tarea->descripcion);
-	free(tarea);
+	if (unaTarea->impuestos != NULL) {
+		int cantidadImpuestos = list_size(unaTarea->impuestos);
+		int i;
+		for (i = 0; i < cantidadImpuestos; ++i) {
+			impuesto unImpuesto = list_get(unaTarea->impuestos, i);
+			Impuesto_destroy(unImpuesto);
+		}
+		list_destroy(unaTarea->impuestos);
+	}
+
+	free(unaTarea->descripcion);
+	free(unaTarea);
 }
 
-void Tarea_agregarSubtarea(t_tarea* tarea, t_tarea* subtarea) {
+void Tarea_agregarSubtarea(tarea unaTarea, tarea unaSubtarea) {
 	//TODO: Modelar un TAD error
-	tarea->subtareas = list_add(tarea->subtareas, subtarea);
+	unaTarea->subtareas = list_add(unaTarea->subtareas, unaSubtarea);
 }
 
-// temp . Es el test!!
-void Tarea_verSubtareas(t_tarea* tarea) {
-	int i = 0;
-	int cantidadSubtareas = list_size(tarea->subtareas);
-	printf("\nCantidad subtareas: %d\n", cantidadSubtareas); // esto es un test en sí mismo
-	for (i = 0; i < cantidadSubtareas; i++) {
-		t_tarea* subtarea = list_get(tarea->subtareas, i);
-		printf("\n Subtarea %d : %s %f", i + 1, Tarea_asString(subtarea), Tarea_costo(subtarea));
-	}
+void Tarea_agregarImpuesto(tarea tarea, impuesto impuesto) {
+	tarea->impuestos = list_add(tarea->impuestos, impuesto);
 }
-// fin temp
+
 

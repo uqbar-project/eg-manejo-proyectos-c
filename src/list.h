@@ -17,6 +17,8 @@ struct node {
 	struct node *next;
 } t_node;
 
+typedef struct node* list;
+
 struct node* list_add(struct node *head, void* data);
 void list_print(struct node *head);
 void list_destroy(struct node *head);

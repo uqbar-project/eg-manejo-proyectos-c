@@ -9,23 +9,26 @@
 #define TAREA_H_
 
 #include "complejidad.h"
+#include "impuesto.h"
 
 // definición de estructuras
 typedef struct Tarea t_tarea;
 typedef struct t_tarea tad_tarea;
+typedef t_tarea* tarea;
 
 /************************************************************
 * Operaciones primitivas sobre el TAD Tarea
 *************************************************************/
-t_tarea* Tarea_crear(char* descripcion, int tiempo, t_complejidad complejidad);
+tarea Tarea_crear(char*, int, t_complejidad);
 // TODO: Definir la asignación de una complejidad minima, media y maxima
-float Tarea_costo(t_tarea*);
-float Tarea_tiempoTotal(t_tarea*);
-char* Tarea_asString(t_tarea*);
-void Tarea_agregarSubtarea(t_tarea*, t_tarea*);
-void Tarea_destroy(t_tarea*);
+float Tarea_costo(tarea);
+float Tarea_tiempoTotal(tarea);
+char* Tarea_asString(tarea);
+void Tarea_agregarSubtarea(tarea, tarea);
+void Tarea_agregarImpuesto(tarea, impuesto);
+void Tarea_destroy(tarea);
 
 // temp
-void Tarea_verSubtareas(t_tarea* tarea);
+void Tarea_verSubtareas(tarea);
 
 #endif /* TAREA_H_ */
