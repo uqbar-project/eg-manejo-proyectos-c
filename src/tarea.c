@@ -53,8 +53,9 @@ static float internalTarea_costoBase(tarea tarea) {
 /************************************************************
  * Operaciones primitivas sobre el TAD Tarea
  *************************************************************/
-tarea Tarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
-	tarea tarea = internalTarea_crear(descripcion, tiempo, complejidad);
+tarea Tarea_crear(char* descripcion, int tiempo) {
+	// por default creamos la tarea de complejidad minima
+	tarea tarea = internalTarea_crear(descripcion, tiempo, COMPLEJIDAD_MINIMA);
 	tarea->subtareas = NULL;
 	tarea->impuestos = NULL;
 	return tarea;
@@ -117,6 +118,23 @@ void Tarea_agregarSubtarea(tarea unaTarea, tarea unaSubtarea) {
 
 void Tarea_agregarImpuesto(tarea tarea, impuesto impuesto) {
 	tarea->impuestos = list_add(tarea->impuestos, impuesto);
+}
+
+void Tarea_crearImpuesto(tarea tarea, char* descripcionImpuesto, float valorImpuesto) {
+	impuesto impuesto = Impuesto_crear(descripcionImpuesto, valorImpuesto);
+	tarea->impuestos = list_add(tarea->impuestos, impuesto);
+}
+
+void Tarea_setComplejidadMinima(tarea unaTarea) {
+	unaTarea->complejidad = COMPLEJIDAD_MINIMA;
+}
+
+void Tarea_setComplejidadMedia(tarea unaTarea) {
+	unaTarea->complejidad = COMPLEJIDAD_MEDIA;
+}
+
+void Tarea_setComplejidadMaxima(tarea unaTarea) {
+	unaTarea->complejidad = COMPLEJIDAD_MAXIMA;
 }
 
 
