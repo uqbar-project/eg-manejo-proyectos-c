@@ -1,4 +1,7 @@
 /*
+ *
+ * DEFINICION DEL TAD IMPUESTO
+ *
  * impuesto.c
  *
  * Representa una carga impositiva que agrega costo a una tarea
@@ -21,11 +24,11 @@ struct Impuesto {
 };
 
 /************************************************************
- * Operaciones primitivas de acceso al TAD
+ * Operaciones primitivas
  *************************************************************/
 
 /************************************************************
- * Constructores
+ * Operaciones de alto nivel
  *************************************************************/
 impuesto Impuesto_crear(char* descripcion, float costo) {
 	impuesto self = (impuesto) malloc(sizeof(struct Impuesto));
@@ -42,9 +45,6 @@ impuesto Impuesto_crear(char* descripcion, float costo) {
 	return self;
 }
 
-/************************************************************
- * Operaciones de alto nivel sobre el TAD
- *************************************************************/
 float Impuesto_monto(impuesto unImpuesto, float costoBase) {
 	return costoBase * unImpuesto->costo / 100;
 }

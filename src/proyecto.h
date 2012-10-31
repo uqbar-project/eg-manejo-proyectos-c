@@ -1,6 +1,8 @@
 /*
  * proyecto.h
  *
+ * Representa un proyecto que se desarrolla en un lugar
+ *
  *  Created on: 19/10/2012
  *      Author: dodain
  */

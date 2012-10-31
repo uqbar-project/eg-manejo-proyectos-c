@@ -1,6 +1,8 @@
 /*
  * impuesto.h
  *
+ * Representa una carga impositiva que agrega costo a una tarea
+ *
  *  Created on: 19/10/2012
  *      Author: dodain
  */

@@ -1,6 +1,8 @@
 /*
  * tarea.h
  *
+ * Representa una tarea dentro de un proyecto
+ *
  *  Created on: 26/05/2012
  *      Author: dodain
  */

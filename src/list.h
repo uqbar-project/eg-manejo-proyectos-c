@@ -1,6 +1,8 @@
 /*
  * list.h
  *
+ * Representa un conjunto ordenado de datos que admite duplicados
+ *
  *  Created on: 02/06/2012
  *      Author: dodain
  */

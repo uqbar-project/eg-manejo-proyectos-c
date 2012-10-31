@@ -1,6 +1,8 @@
 /*
  * complejidad.h
  *
+ * Representa la complejidad inherente a una tarea
+ *
  *  Created on: 26/05/2012
  *      Author: dodain
  */

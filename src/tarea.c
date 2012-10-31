@@ -51,7 +51,7 @@ float internalTarea_costoBase(tarea tarea) {
 }
 
 /************************************************************
- * Constructores
+ * Operaciones de alto nivel
  *************************************************************/
 tarea Tarea_crear(char* descripcion, int tiempo, complejidad complejidad) {
 	tarea tarea = internalTarea_crear(descripcion, tiempo, complejidad);
@@ -60,9 +60,6 @@ tarea Tarea_crear(char* descripcion, int tiempo, complejidad complejidad) {
 	return tarea;
 }
 
-/************************************************************
- * Operaciones de alto nivel
- *************************************************************/
 float Tarea_costo(tarea unaTarea) {
 	float costoBase = internalTarea_costoBase(unaTarea);
 	float costoTotal = costoBase;

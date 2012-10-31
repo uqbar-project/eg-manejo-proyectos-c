@@ -1,4 +1,7 @@
 /*
+ *
+ * DEFINICION DEL TAD PROYECTO
+ *
  * proyecto.c
  *
  * Representa un proyecto que se desarrolla en un lugar
@@ -26,7 +29,7 @@ struct Proyecto {
  *************************************************************/
 
 /************************************************************
- * Constructores
+ * Operaciones de alto nivel
  *************************************************************/
 proyecto Proyecto_crear(char* descripcion) {
 	proyecto self = (struct Proyecto*) malloc(sizeof(proyecto));
@@ -43,9 +46,6 @@ proyecto Proyecto_crear(char* descripcion) {
 	return self;
 }
 
-/************************************************************
- * Operaciones de alto nivel sobre el TAD
- *************************************************************/
 float Proyecto_costo(proyecto unProyecto) {
 	float costoTotal = 0.0;
 	int i;

@@ -20,7 +20,7 @@ struct node {
 };
 
 /************************************************************
- * Operaciones de alto nivel sobre el TAD
+ * Operaciones de alto nivel
  *************************************************************/
 list list_createNode() {
 	list newNode = (list) malloc(sizeof(struct node));
