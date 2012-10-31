@@ -19,19 +19,19 @@
 /************************************************************
  * Estructura interna
  *************************************************************/
-typedef struct Tarea {
+struct Tarea {
 	char* descripcion;
 	int tiempo;
 	enum COMPLEJIDAD complejidad;
 	list subtareas;
 	list impuestos;
-} t_tarea;
+};
 
 /************************************************************
- * Funciones privadas de acceso al TAD Tarea
+ * Operaciones primitivas
  *************************************************************/
-static tarea internalTarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
-	tarea self = (t_tarea *) malloc(sizeof(t_tarea));
+tarea internalTarea_crear(char* descripcion, int tiempo, complejidad complejidad) {
+	tarea self = (tarea) malloc(sizeof(struct Tarea));
 
 	if (self == NULL) {
 		perror("No se pudo crear la tarea");
@@ -46,20 +46,23 @@ static tarea internalTarea_crear(char* descripcion, int tiempo, t_complejidad co
 	return self;
 }
 
-static float internalTarea_costoBase(tarea tarea) {
+float internalTarea_costoBase(tarea tarea) {
 	return Complejidad_costo(COMPLEJIDAD_MINIMA, tarea->tiempo);
 }
 
 /************************************************************
- * Operaciones primitivas sobre el TAD Tarea
+ * Constructores
  *************************************************************/
-tarea Tarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
+tarea Tarea_crear(char* descripcion, int tiempo, complejidad complejidad) {
 	tarea tarea = internalTarea_crear(descripcion, tiempo, complejidad);
 	tarea->subtareas = NULL;
 	tarea->impuestos = NULL;
 	return tarea;
 }
 
+/************************************************************
+ * Operaciones de alto nivel
+ *************************************************************/
 float Tarea_costo(tarea unaTarea) {
 	float costoBase = internalTarea_costoBase(unaTarea);
 	float costoTotal = costoBase;

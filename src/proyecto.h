@@ -2,7 +2,7 @@
  * proyecto.h
  *
  *  Created on: 19/10/2012
- *      Author: fernado
+ *      Author: dodain
  */
 
 #ifndef PROYECTO_H_
@@ -10,14 +10,10 @@
 
 #include "tarea.h"
 
-// definición de estructuras
-typedef struct Proyecto t_proyecto;
-typedef struct t_proyecto tad_proyecto;
-typedef t_proyecto* proyecto;
+// definición de estructuras de datos
+typedef struct Proyecto* proyecto;
 
-/************************************************************
-* Operaciones primitivas sobre el TAD Tarea
-*************************************************************/
+// operaciones de alto nivel
 proyecto Proyecto_crear(char*);
 void Proyecto_agregarTarea(proyecto, tarea);
 float Proyecto_costo(proyecto);

@@ -1,6 +1,7 @@
 /*
  * testTarea.c
  *
+ * Conjunto de tests asociados principalmente a una tarea
  *  Created on: 26/05/2012
  *      Author: dodain
  */
@@ -13,7 +14,6 @@
 #include "../src/tarea.h"
 #include "../src/impuesto.h"
 #include "../src/proyecto.h"
-//#include <cutest-1.5/CuTest.h>
 #include "CuTest.h"
 #include "tareaTest.h"
 
@@ -32,7 +32,7 @@ static tarea prepareDarClase(void) {
 	return darClase;
 }
 
-static float costoTarea(char *descripcion, int tiempo, t_complejidad complejidad) {
+static float costoTarea(char *descripcion, int tiempo, complejidad complejidad) {
 	tarea tarea = Tarea_crear(descripcion, tiempo, complejidad);
 	float costo = Tarea_costo(tarea);
 	Tarea_destroy(tarea);

@@ -1,6 +1,8 @@
 /*
  * complejidad.c
  *
+ * Representa la complejidad inherente a una tarea
+ *
  *  Created on: 26/05/2012
  *      Author: dodain
  */
@@ -8,8 +10,17 @@
 #include <stdio.h>
 #include "complejidad.h"
 
+#define PORCENTAJE_EXTRA_COMPLEJIDAD_MEDIA    		1.05;
+
+#define PORCENTAJE_EXTRA_COMPLEJIDAD_MAXIMA   		1.07;
+#define MAXIMO_DIAS_COMPLEJIDAD_MAXIMA    		    10;
+#define COSTO_EXTRA_COMPLEJIDAD_MAXIMA 				10;
+
 static const float COMPLEJIDAD_COSTO_BASE = 25.0;
 
+/************************************************************
+ * Funciones privadas de acceso al TAD
+ *************************************************************/
 float internalComplejidad_costoBase(int tiempo) {
 	return tiempo * COMPLEJIDAD_COSTO_BASE;
 }
@@ -24,6 +35,9 @@ float internalComplejidad_costoBaseComplejidadMaxima(float costoBase, int tiempo
 	return result;
 }
 
+/************************************************************
+ * Operaciones de alto nivel sobre el TAD
+ *************************************************************/
 float Complejidad_costo(enum COMPLEJIDAD complejidad, int tiempo) {
 	float costoBase = internalComplejidad_costoBase(tiempo);
 	switch (complejidad) {
@@ -31,8 +45,7 @@ float Complejidad_costo(enum COMPLEJIDAD complejidad, int tiempo) {
 		return costoBase;
 		break;
 	case COMPLEJIDAD_MEDIA:
-		return costoBase * PORCENTAJE_EXTRA_COMPLEJIDAD_MEDIA
-		;
+		return costoBase * PORCENTAJE_EXTRA_COMPLEJIDAD_MEDIA;
 		break;
 	default:
 		return internalComplejidad_costoBaseComplejidadMaxima(costoBase, tiempo);

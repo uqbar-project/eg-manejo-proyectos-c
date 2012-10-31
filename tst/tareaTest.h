@@ -15,7 +15,11 @@
 /*
  * Definición de tests sobre la tarea
  */
-void TestTarea1(CuTest* tc);
+void TestCostoTareaSimpleComplejidadMinima(CuTest *);
+void TestCostoTareaSimpleComplejidadMinima(CuTest *);
+void TestCostoTareaCompuestaSinImpuestos(CuTest *);
+void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest *);
+void TestCostoProyecto(CuTest *);
 
 /*
  *  Definición del suite
