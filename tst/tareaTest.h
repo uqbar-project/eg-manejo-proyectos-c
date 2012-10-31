@@ -8,10 +8,6 @@
 #ifndef TAREATEST_H_
 #define TAREATEST_H_
 
-
-
-#endif /* TAREATEST_H_ */
-
 /*
  * Definición de tests sobre la tarea
  */
@@ -25,3 +21,5 @@ void TestCostoProyecto(CuTest *);
  *  Definición del suite
  */
 CuSuite* CuGetTareasSuite(void);
+
+#endif /* TAREATEST_H_ */

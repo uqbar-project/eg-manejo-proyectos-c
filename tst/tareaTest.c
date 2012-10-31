@@ -20,7 +20,7 @@
 /********************************************************************
  *  FUNCIONES INTERNAS
  *********************************************************************/
-static tarea prepareDarClase(void) {
+tarea prepareDarClase(void) {
 	tarea darClase;
 	tarea prepararClase;
 	tarea medirTiempoClase;
@@ -32,7 +32,7 @@ static tarea prepareDarClase(void) {
 	return darClase;
 }
 
-static float costoTarea(char *descripcion, int tiempo, complejidad complejidad) {
+float costoTarea(char *descripcion, int tiempo, complejidad complejidad) {
 	tarea tarea = Tarea_crear(descripcion, tiempo, complejidad);
 	float costo = Tarea_costo(tarea);
 	Tarea_destroy(tarea);
