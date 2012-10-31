@@ -1,8 +1,13 @@
 /*
+ *
+ * DEFINICION DEL TAD PROYECTO
+ *
  * proyecto.c
  *
+ * Representa un proyecto que se desarrolla en un lugar
+ *
  *  Created on: 19/10/2012
- *      Author: fernado
+ *      Author: dodain
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,16 +19,20 @@
 /************************************************************
  * Estructura interna
  *************************************************************/
-typedef struct Proyecto {
+struct Proyecto {
 	char* descripcion;
 	list tareas;
-} t_proyecto;
+};
 
 /************************************************************
- * Funciones privadas de acceso al TAD Tarea
+ * Operaciones primitivas
+ *************************************************************/
+
+/************************************************************
+ * Operaciones de alto nivel
  *************************************************************/
 proyecto Proyecto_crear(char* descripcion) {
-	proyecto self = (t_proyecto*) malloc(sizeof(t_proyecto));
+	proyecto self = (struct Proyecto*) malloc(sizeof(proyecto));
 
 	if (self == NULL) {
 		perror("No se pudo crear el proyecto");

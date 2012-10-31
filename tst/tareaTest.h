@@ -8,16 +8,18 @@
 #ifndef TAREATEST_H_
 #define TAREATEST_H_
 
-
-
-#endif /* TAREATEST_H_ */
-
 /*
  * Definición de tests sobre la tarea
  */
-void TestTarea1(CuTest* tc);
+void TestCostoTareaSimpleComplejidadMinima(CuTest *);
+void TestCostoTareaSimpleComplejidadMinima(CuTest *);
+void TestCostoTareaCompuestaSinImpuestos(CuTest *);
+void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest *);
+void TestCostoProyecto(CuTest *);
 
 /*
  *  Definición del suite
  */
 CuSuite* CuGetTareasSuite(void);
+
+#endif /* TAREATEST_H_ */

@@ -16,22 +16,26 @@
 #include "tarea.h"
 #include "impuesto.h"
 
+#define for_each(cant, it) \
+	int it; \
+	for (it = 0; it < cant; it++)
+
 /************************************************************
  * Estructura interna
  *************************************************************/
-typedef struct Tarea {
+struct Tarea {
 	char* descripcion;
 	int tiempo;
 	enum COMPLEJIDAD complejidad;
 	list subtareas;
 	list impuestos;
-} t_tarea;
+};
 
 /************************************************************
- * Funciones privadas de acceso al TAD Tarea
+ * Operaciones primitivas
  *************************************************************/
-static tarea internalTarea_crear(char* descripcion, int tiempo, t_complejidad complejidad) {
-	tarea self = (t_tarea *) malloc(sizeof(t_tarea));
+tarea internalTarea_crear(char* descripcion, int tiempo, complejidad complejidad) {
+	tarea self = (tarea) malloc(sizeof(struct Tarea));
 
 	if (self == NULL) {
 		perror("No se pudo crear la tarea");
@@ -46,12 +50,12 @@ static tarea internalTarea_crear(char* descripcion, int tiempo, t_complejidad co
 	return self;
 }
 
-static float internalTarea_costoBase(tarea tarea) {
+float internalTarea_costoBase(tarea tarea) {
 	return Complejidad_costo(COMPLEJIDAD_MINIMA, tarea->tiempo);
 }
 
 /************************************************************
- * Operaciones primitivas sobre el TAD Tarea
+ * Operaciones de alto nivel
  *************************************************************/
 tarea Tarea_crear(char* descripcion, int tiempo) {
 	// por default creamos la tarea de complejidad minima
@@ -64,15 +68,14 @@ tarea Tarea_crear(char* descripcion, int tiempo) {
 float Tarea_costo(tarea unaTarea) {
 	float costoBase = internalTarea_costoBase(unaTarea);
 	float costoTotal = costoBase;
-	int i = 0;
 	int cantidadSubtareas = list_size(unaTarea->subtareas);
-	for (i = 0; i < cantidadSubtareas; i++) {
+	for_each(cantidadSubtareas, i) {
 		tarea subtarea = list_get(unaTarea->subtareas, i);
 		costoTotal = costoTotal + Tarea_costo(subtarea);
 	}
 	int cantidadImpuestos = list_size(unaTarea->impuestos);
-	for (i = 0; i < cantidadImpuestos; i++) {
-		impuesto unImpuesto = list_get(unaTarea->impuestos, i);
+	for_each(cantidadImpuestos, j) {
+		impuesto unImpuesto = list_get(unaTarea->impuestos, j);
 		costoTotal = costoTotal + Impuesto_monto(unImpuesto, costoBase);
 	}
 
@@ -90,8 +93,7 @@ char* Tarea_asString(tarea unaTarea) {
 void Tarea_destroy(tarea unaTarea) {
 	if (unaTarea->subtareas != NULL) {
 		int cantidadTareas = list_size(unaTarea->subtareas);
-		int i;
-		for (i = 0; i < cantidadTareas; ++i) {
+		for_each(cantidadTareas, i) {
 			tarea subtarea = list_get(unaTarea->subtareas, i);
 			Tarea_destroy(subtarea);
 		}
@@ -99,9 +101,8 @@ void Tarea_destroy(tarea unaTarea) {
 	}
 	if (unaTarea->impuestos != NULL) {
 		int cantidadImpuestos = list_size(unaTarea->impuestos);
-		int i;
-		for (i = 0; i < cantidadImpuestos; ++i) {
-			impuesto unImpuesto = list_get(unaTarea->impuestos, i);
+		for_each(cantidadImpuestos, j) {
+			impuesto unImpuesto = list_get(unaTarea->impuestos, j);
 			Impuesto_destroy(unImpuesto);
 		}
 		list_destroy(unaTarea->impuestos);
@@ -116,11 +117,7 @@ void Tarea_agregarSubtarea(tarea unaTarea, tarea unaSubtarea) {
 	unaTarea->subtareas = list_add(unaTarea->subtareas, unaSubtarea);
 }
 
-void Tarea_agregarImpuesto(tarea tarea, impuesto impuesto) {
-	tarea->impuestos = list_add(tarea->impuestos, impuesto);
-}
-
-void Tarea_crearImpuesto(tarea tarea, char* descripcionImpuesto, float valorImpuesto) {
+void Tarea_agregarImpuesto(tarea tarea, char* descripcionImpuesto, float valorImpuesto) {
 	impuesto impuesto = Impuesto_crear(descripcionImpuesto, valorImpuesto);
 	tarea->impuestos = list_add(tarea->impuestos, impuesto);
 }

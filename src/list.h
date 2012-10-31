@@ -1,6 +1,8 @@
 /*
  * list.h
  *
+ * Representa un conjunto ordenado de datos que admite duplicados
+ *
  *  Created on: 02/06/2012
  *      Author: dodain
  */
@@ -12,17 +14,14 @@
 #include <stdlib.h>
 #include <windef.h>
 
-struct node {
-	void* data;
-	struct node *next;
-} t_node;
-
+// definición de estructuras de datos
 typedef struct node* list;
 
-struct node* list_add(struct node *head, void* data);
-void list_print(struct node *head);
-void list_destroy(struct node *head);
-void* list_get(struct node *head, int index);
-int list_size(struct node *head);
+// operaciones de alto nivel
+list list_add(list head, void* data);
+void list_print(list head);
+void list_destroy(list head);
+void* list_get(list head, int index);
+int list_size(list head);
 
 #endif /* LIST_H_ */

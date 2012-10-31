@@ -11,14 +11,13 @@
 #include <string.h>
 #include "../src/tarea.h"
 #include "../src/proyecto.h"
-//#include <cutest-1.5/CuTest.h>
 #include "CuTest.h"
 #include "tareaTest.h"
 
 /********************************************************************
  *  FUNCIONES INTERNAS
  *********************************************************************/
-static tarea prepareDarClase(void) {
+tarea prepareDarClase(void) {
 	tarea darClase;
 	tarea prepararClase;
 	tarea medirTiempoClase;
@@ -32,7 +31,7 @@ static tarea prepareDarClase(void) {
 	return darClase;
 }
 
-static float costoTarea(char *descripcion, int tiempo) {
+float costoTarea(char *descripcion, int tiempo) {
 	tarea tarea = Tarea_crear(descripcion, tiempo);
 	float costo = Tarea_costo(tarea);
 	Tarea_destroy(tarea);
@@ -51,8 +50,8 @@ void TestCostoTareaSimpleComplejidadMinima(CuTest* tc) {
 void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest* tc) {
 	tarea prepararClase;
 	prepararClase = Tarea_crear("Preparar clase", 5);
-	Tarea_crearImpuesto(prepararClase, "Impuesto A", 3.0f);
-	Tarea_crearImpuesto(prepararClase, "Impuesto B", 5.0f);
+	Tarea_agregarImpuesto(prepararClase, "Impuesto A", 3.0f);
+	Tarea_agregarImpuesto(prepararClase, "Impuesto B", 5.0f);
 	float costoPrepararClase = Tarea_costo(prepararClase);
 	Tarea_destroy(prepararClase);
 
