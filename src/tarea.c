@@ -47,7 +47,7 @@ tarea internalTarea_crear(char* descripcion, int tiempo, complejidad complejidad
 }
 
 float internalTarea_costoBase(tarea tarea) {
-	return Complejidad_costo(COMPLEJIDAD_MINIMA, tarea->tiempo);
+	return Complejidad_costo(tarea->complejidad, tarea->tiempo);
 }
 
 /************************************************************

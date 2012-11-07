@@ -12,7 +12,7 @@
  * Definición de tests sobre la tarea
  */
 void TestCostoTareaSimpleComplejidadMinima(CuTest *);
-void TestCostoTareaSimpleComplejidadMinima(CuTest *);
+void TestCostoTareaSimpleComplejidadMedia(CuTest *);
 void TestCostoTareaCompuestaSinImpuestos(CuTest *);
 void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest *);
 void TestCostoProyecto(CuTest *);
