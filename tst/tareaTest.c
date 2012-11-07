@@ -72,7 +72,7 @@ void TestCostoTareaCompuestaSinImpuestos(CuTest* tc) {
 	float costoDarClase = Tarea_costo(darClase);
 	Tarea_destroy(darClase);
 
-	CuAssert(tc, "costo de dar clase", costoDarClase == 400);
+	CuAssert(tc, "costo de dar clase", costoDarClase == 403.75);
 }
 
 void TestCostoProyecto(CuTest* tc) {
@@ -84,7 +84,7 @@ void TestCostoProyecto(CuTest* tc) {
 	Tarea_destroy(subirResumenAlSite);
 	Proyecto_destroy(claseDisenioEstructurado);
 
-	CuAssert(tc, "costo de proyecto", costoClaseDE == 650);
+	CuAssert(tc, "costo de proyecto", costoClaseDE == 653.75);
 }
 
 CuSuite* CuGetTareasSuite(void) {
