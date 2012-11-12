@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windef.h>
+#include "tarea.h"
 #include "list.h"
 #include "tarea.h"
 #include "proyecto.h"
@@ -32,7 +33,7 @@ struct Proyecto {
  * Operaciones de alto nivel
  *************************************************************/
 proyecto Proyecto_crear(char* descripcion) {
-	proyecto self = (struct Proyecto*) malloc(sizeof(proyecto));
+	proyecto self = (proyecto) malloc(sizeof(struct Proyecto));
 
 	if (self == NULL) {
 		perror("No se pudo crear el proyecto");
@@ -62,6 +63,10 @@ void Proyecto_agregarTarea(proyecto unProyecto, tarea unaTarea) {
 }
 
 void Proyecto_destroy(proyecto unProyecto) {
+	if (unProyecto == NULL) {
+		return;
+	}
+
 	if (unProyecto->tareas != NULL) {
 		int cantidadTareas = list_size(unProyecto->tareas);
 		int i;
@@ -72,5 +77,6 @@ void Proyecto_destroy(proyecto unProyecto) {
 		list_destroy(unProyecto->tareas);
 	}
 	free(unProyecto->descripcion);
+	unProyecto->descripcion = NULL;
 	free(unProyecto);
 }

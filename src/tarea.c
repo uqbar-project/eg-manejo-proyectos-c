@@ -107,6 +107,7 @@ void Tarea_destroy(tarea unaTarea) {
 	}
 
 	free(unaTarea->descripcion);
+	unaTarea->descripcion = NULL;
 	free(unaTarea);
 }
 

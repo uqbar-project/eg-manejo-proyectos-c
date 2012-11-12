@@ -43,9 +43,9 @@ float costoTarea(char *descripcion, int tiempo, complejidad complejidad) {
  *  TESTS
  *********************************************************************/
 void TestCostoTareaSimpleComplejidadMinima(CuTest* tc) {
-	tarea prepararClase;
-	prepararClase = Tarea_crear("Preparar clase", 5, COMPLEJIDAD_MINIMA);
+	tarea prepararClase = Tarea_crear("Preparar clase", 5, COMPLEJIDAD_MINIMA);
 	float costoDarClase = Tarea_costo(prepararClase);
+	Tarea_destroy(prepararClase);
 
 	CuAssert(tc, "costo de preparar clase", costoDarClase == 125);
 }
@@ -60,8 +60,6 @@ void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest* tc) {
 	Tarea_agregarImpuesto(prepararClase, impuestoA);
 	Tarea_agregarImpuesto(prepararClase, impuestoB);
 	float costoPrepararClase = Tarea_costo(prepararClase);
-	Impuesto_destroy(impuestoA);
-	Impuesto_destroy(impuestoB);
 	Tarea_destroy(prepararClase);
 
 	CuAssert(tc, "costo de preparar clase", costoPrepararClase == 135);
@@ -70,7 +68,7 @@ void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest* tc) {
 void TestCostoTareaSimpleComplejidadMedia(CuTest* tc) {
 	float costoDarClase = costoTarea("Medir tiempo clase", 3, COMPLEJIDAD_MEDIA);
 
-	CuAssert(tc, "costo de medir tiempo de clase", costoDarClase == 75);
+	CuAssert(tc, "costo de medir tiempo de clase", costoDarClase == 78.75);
 }
 
 void TestCostoTareaCompuestaSinImpuestos(CuTest* tc) {
@@ -87,8 +85,8 @@ void TestCostoProyecto(CuTest* tc) {
 	Proyecto_agregarTarea(claseDisenioEstructurado, prepareDarClase());
 	Proyecto_agregarTarea(claseDisenioEstructurado, subirResumenAlSite);
 	float costoClaseDE = Proyecto_costo(claseDisenioEstructurado);
-	Tarea_destroy(subirResumenAlSite);
 	Proyecto_destroy(claseDisenioEstructurado);
+
 	CuAssert(tc, "costo de proyecto", costoClaseDE == 653.75);
 }
 
@@ -96,7 +94,7 @@ CuSuite* CuGetTareasSuite(void) {
 	CuSuite* suite = CuSuiteNew();
 
 	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinima);
-	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinima);
+	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMedia); // TODO: Funciona mal - ver Franco
 	SUITE_ADD_TEST(suite, TestCostoTareaCompuestaSinImpuestos);
 	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinimaConImpuestos);
 	SUITE_ADD_TEST(suite, TestCostoProyecto);

@@ -13,7 +13,7 @@
 #include "complejidad.h"
 #include "impuesto.h"
 
-// definición de estructuras de daots
+// definición de estructuras de datos
 typedef struct Tarea* tarea;
 
 // operaciones de alto nivel

@@ -50,6 +50,10 @@ float Impuesto_monto(impuesto unImpuesto, float costoBase) {
 }
 
 void Impuesto_destroy(impuesto unImpuesto) {
+	if (unImpuesto == NULL) {
+		return;
+	}
 	free(unImpuesto->descripcion);
+	unImpuesto->descripcion = NULL;
 	free(unImpuesto);
 }

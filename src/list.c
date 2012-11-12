@@ -51,6 +51,10 @@ void list_print(list head) {
 }
 
 void list_destroy(list head) {
+	if (head == NULL) {
+		return;
+	}
+
 	list current, tmp;
 
 	current = head->next;
