@@ -26,13 +26,13 @@ struct Proyecto {
 
 /************************************************************
  * Operaciones primitivas
- *************************************************************/
+ ****************************************************P********/
 
 /************************************************************
  * Operaciones de alto nivel
  *************************************************************/
 proyecto Proyecto_crear(char* descripcion) {
-	proyecto self = (struct Proyecto*) malloc(sizeof(proyecto));
+	proyecto self = (proyecto) malloc(sizeof(struct Proyecto));
 
 	if (self == NULL) {
 		perror("No se pudo crear el proyecto");
@@ -62,15 +62,22 @@ void Proyecto_agregarTarea(proyecto unProyecto, tarea unaTarea) {
 }
 
 void Proyecto_destroy(proyecto unProyecto) {
+	if (unProyecto == NULL) {
+		return;
+	}
+
 	if (unProyecto->tareas != NULL) {
 		int cantidadTareas = list_size(unProyecto->tareas);
 		int i;
 		for (i = 0; i < cantidadTareas; ++i) {
 			tarea unaTarea = list_get(unProyecto->tareas, i);
-			Tarea_destroy(unaTarea);
+			if (unaTarea != NULL) {
+				Tarea_destroy(unaTarea);
+			}
 		}
 		list_destroy(unProyecto->tareas);
 	}
 	free(unProyecto->descripcion);
+	unProyecto->descripcion = NULL;
 	free(unProyecto);
 }

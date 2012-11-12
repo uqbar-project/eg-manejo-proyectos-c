@@ -91,6 +91,10 @@ char* Tarea_asString(tarea unaTarea) {
 }
 
 void Tarea_destroy(tarea unaTarea) {
+	if (unaTarea == NULL) {
+		return;
+	}
+
 	if (unaTarea->subtareas != NULL) {
 		int cantidadTareas = list_size(unaTarea->subtareas);
 		for_each(cantidadTareas, i) {
@@ -109,6 +113,7 @@ void Tarea_destroy(tarea unaTarea) {
 	}
 
 	free(unaTarea->descripcion);
+	unaTarea->descripcion = NULL;
 	free(unaTarea);
 }
 

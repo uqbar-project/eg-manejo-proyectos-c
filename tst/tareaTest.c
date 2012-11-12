@@ -81,7 +81,6 @@ void TestCostoProyecto(CuTest* tc) {
 	Proyecto_agregarTarea(claseDisenioEstructurado, prepareDarClase());
 	Proyecto_agregarTarea(claseDisenioEstructurado, subirResumenAlSite);
 	float costoClaseDE = Proyecto_costo(claseDisenioEstructurado);
-	Tarea_destroy(subirResumenAlSite);
 	Proyecto_destroy(claseDisenioEstructurado);
 
 	CuAssert(tc, "costo de proyecto", costoClaseDE == 653.75);
