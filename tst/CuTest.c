@@ -5,7 +5,9 @@
 #include <string.h>
 #include <math.h>
 
-#include <windef.h>
+#ifdef _WIN32
+	#include <windef.h>
+#endif
 #include <stdarg.h>
 
 #include "CuTest.h"
