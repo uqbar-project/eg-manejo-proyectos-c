@@ -81,10 +81,10 @@ void TestCostoProyecto(CuTest* tc) {
 	Proyecto_agregarTarea(claseDisenioEstructurado, prepareDarClase());
 	Proyecto_agregarTarea(claseDisenioEstructurado, subirResumenAlSite);
 	float costoClaseDE = Proyecto_costo(claseDisenioEstructurado);
-	// El proyecto elimina la referencia a la tarea, esto puede traer problemas
-	// si queremos usar la tarea subirResumenAlSite
-	// Tarea_destroy(subirResumenAlSite);
 	Proyecto_destroy(claseDisenioEstructurado);
+	// El destroy de tareas es Por las dudas, debemos tener cuidado
+	// de no eliminar la tarea antes del proyecto porque queda mal la referencia
+	Tarea_destroy(subirResumenAlSite);
 
 	CuAssert(tc, "costo de proyecto", costoClaseDE == 653.75);
 }
