@@ -118,7 +118,6 @@ void Tarea_destroy(tarea unaTarea) {
 		free(unaTarea->descripcion);
 	}
 	free(unaTarea);
-	unaTarea = NULL;
 }
 
 void Tarea_agregarSubtarea(tarea unaTarea, tarea unaSubtarea) {

@@ -72,6 +72,7 @@ void Proyecto_destroy(proyecto unProyecto) {
 		for (i = 0; i < cantidadTareas; ++i) {
 			tarea unaTarea = list_get(unProyecto->tareas, i);
 			Tarea_destroy(unaTarea);
+			unaTarea = NULL;
 		}
 		list_destroy(unProyecto->tareas);
 	}
