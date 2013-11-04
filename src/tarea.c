@@ -11,7 +11,11 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <windef.h>
+#ifdef _WIN32
+	#include <windef.h>
+#else
+	#include <string.h>
+#endif
 #include "list.h"
 #include "tarea.h"
 #include "impuesto.h"
@@ -107,8 +111,9 @@ void Tarea_destroy(tarea unaTarea) {
 		}
 		list_destroy(unaTarea->impuestos);
 	}
-
-	free(unaTarea->descripcion);
+	if (unaTarea->descripcion != NULL) {
+		free(unaTarea->descripcion);
+	}
 	free(unaTarea);
 }
 

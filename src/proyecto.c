@@ -11,7 +11,11 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <windef.h>
+#ifdef _WIN32
+	#include <windef.h>
+#else
+	#include <string.h>
+#endif
 #include "list.h"
 #include "tarea.h"
 #include "proyecto.h"

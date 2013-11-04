@@ -12,7 +12,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windef.h>
+#ifdef _WIN32
+	#include <windef.h>
+#endif
 
 // definición de estructuras de datos
 typedef struct node* list;

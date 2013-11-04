@@ -8,8 +8,10 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <windef.h>
 #include "list.h"
+#ifdef _WIN32
+	#include <windef.h>
+#endif
 
 /************************************************************
  * Estructura interna
@@ -45,7 +47,7 @@ void list_print(list head) {
 	} else {
 		int i;
 		for (i = 0; i <= actualSize; i++) {
-			printf(list_get(head, i));
+			printf(list_get(head, i), "%s");
 		}
 	}
 }
