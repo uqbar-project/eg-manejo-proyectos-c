@@ -4,24 +4,19 @@
  *  Created on: 15/06/2012
  *      Author: dodain
  */
-#include <stdio.h>
 #include <stdlib.h>
-#include "CuTest.h"
+#include <unistd.h>
 #include "tareaTest.h"
 
-void RunAllTests(void) {
-	CuString *output = CuStringNew();
-	CuSuite* suite = CuSuiteNew();
-
-	CuSuiteAddSuite(suite, CuGetTareasSuite());
-
-	CuSuiteRun(suite);
-	CuSuiteSummary(suite, output);
-	CuSuiteDetails(suite, output);
-	printf("%s\n", output->buffer);
-}
-
 int main(void) {
-	RunAllTests();
+	CU_initialize_registry();
+
+	CrearTareasSuite();
+
+	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_run_tests();
+	CU_cleanup_registry();
+
+	return CU_get_error();
 	return EXIT_SUCCESS;
 }

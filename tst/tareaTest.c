@@ -9,15 +9,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../src/tarea.h"
-#include "../src/proyecto.h"
-#include "CuTest.h"
+#include "tarea.h"
+#include "proyecto.h"
 #include "tareaTest.h"
 
 /********************************************************************
  *  FUNCIONES INTERNAS
  *********************************************************************/
-tarea prepareDarClase(void) {
+tarea prepareDarClase() {
 	tarea darClase;
 	tarea prepararClase;
 	tarea medirTiempoClase;
@@ -37,17 +36,23 @@ float costoTarea(char *descripcion, int tiempo) {
 	Tarea_destroy(tarea);
 	return costo;
 }
+int inicializar() {
+	return 0;
+}
 
+int limpiar() {
+	return 0;
+}
 /********************************************************************
  *  TESTS
  *********************************************************************/
-void TestCostoTareaSimpleComplejidadMinima(CuTest* tc) {
+void TestCostoTareaSimpleComplejidadMinima() {
 	float costoDarClase = costoTarea("Preparar clase", 5);
 
-	CuAssert(tc, "costo de preparar clase", costoDarClase == 125);
+	CU_ASSERT_EQUAL(125, costoDarClase);
 }
 
-void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest* tc) {
+void TestCostoTareaSimpleComplejidadMinimaConImpuestos() {
 	tarea prepararClase;
 	prepararClase = Tarea_crear("Preparar clase", 5);
 	Tarea_agregarImpuesto(prepararClase, "Impuesto A", 3.0f);
@@ -55,27 +60,27 @@ void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest* tc) {
 	float costoPrepararClase = Tarea_costo(prepararClase);
 	Tarea_destroy(prepararClase);
 
-	CuAssert(tc, "costo de preparar clase", costoPrepararClase == 135);
+	CU_ASSERT_EQUAL(135, costoPrepararClase);
 }
 
-void TestCostoTareaSimpleComplejidadMedia(CuTest* tc) {
+void TestCostoTareaSimpleComplejidadMedia() {
 	tarea medirTiempoClase = Tarea_crear("Medir tiempo clase", 3);
 	float costoDarClase = Tarea_costo(medirTiempoClase);
 	Tarea_setComplejidadMedia(medirTiempoClase);
 	Tarea_destroy(medirTiempoClase);
 
-	CuAssert(tc, "costo de medir tiempo de clase", costoDarClase == 75);
+	CU_ASSERT_EQUAL(75, costoDarClase);
 }
 
-void TestCostoTareaCompuestaSinImpuestos(CuTest* tc) {
+void TestCostoTareaCompuestaSinImpuestos() {
 	tarea darClase = prepareDarClase();
 	float costoDarClase = Tarea_costo(darClase);
 	Tarea_destroy(darClase);
 
-	CuAssert(tc, "costo de dar clase", costoDarClase == 403.75);
+	CU_ASSERT_EQUAL(403.75,costoDarClase);
 }
 
-void TestCostoProyecto(CuTest* tc) {
+void TestCostoProyecto() {
 	tarea subirResumenAlSite = Tarea_crear("Subir resumen al site", 10);
 	proyecto claseDisenioEstructurado = Proyecto_crear("Disenio estructurado");
 	Proyecto_agregarTarea(claseDisenioEstructurado, prepareDarClase());
@@ -86,16 +91,15 @@ void TestCostoProyecto(CuTest* tc) {
 	Proyecto_destroy(claseDisenioEstructurado);
 	Tarea_destroy(subirResumenAlSite);
 
-	CuAssert(tc, "costo de proyecto", costoClaseDE == 653.75);
+	CU_ASSERT_EQUAL(653.75,costoClaseDE);
 }
 
-CuSuite* CuGetTareasSuite(void) {
-	CuSuite* suite = CuSuiteNew();
-	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinima);
-	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinima);
-	SUITE_ADD_TEST(suite, TestCostoTareaCompuestaSinImpuestos);
-	SUITE_ADD_TEST(suite, TestCostoTareaSimpleComplejidadMinimaConImpuestos);
-	SUITE_ADD_TEST(suite, TestCostoProyecto);
-	return suite;
+void CrearTareasSuite() {
+	CU_pSuite suite = CU_add_suite("suite", inicializar, limpiar);
+	CU_add_test(suite, "TestCostoTareaSimpleComplejidadMinima", TestCostoTareaSimpleComplejidadMinima);
+	CU_add_test(suite, "TestCostoTareaSimpleComplejidadMinima",TestCostoTareaSimpleComplejidadMinima);
+	CU_add_test(suite, "TestCostoTareaSimpleComplejidadMinima", TestCostoTareaCompuestaSinImpuestos);
+	CU_add_test(suite, "TestCostoTareaSimpleComplejidadMinima", TestCostoTareaSimpleComplejidadMinimaConImpuestos);
+	CU_add_test(suite, "TestCostoTareaSimpleComplejidadMinima",TestCostoProyecto);
 }
 
