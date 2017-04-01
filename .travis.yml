@@ -1,3 +1,1 @@
-compiler:
-  - clang
-  - gcc
+language: c
