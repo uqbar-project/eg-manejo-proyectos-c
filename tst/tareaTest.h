@@ -8,18 +8,21 @@
 #ifndef TAREATEST_H_
 #define TAREATEST_H_
 
+#include <CUnit/Basic.h>
+int inicializar();
+int limpiar();
 /*
  * Definición de tests sobre la tarea
  */
-void TestCostoTareaSimpleComplejidadMinima(CuTest *);
-void TestCostoTareaSimpleComplejidadMinima(CuTest *);
-void TestCostoTareaCompuestaSinImpuestos(CuTest *);
-void TestCostoTareaSimpleComplejidadMinimaConImpuestos(CuTest *);
-void TestCostoProyecto(CuTest *);
+void TestCostoTareaSimpleComplejidadMinima();
+void TestCostoTareaSimpleComplejidadMinima();
+void TestCostoTareaCompuestaSinImpuestos();
+void TestCostoTareaSimpleComplejidadMinimaConImpuestos();
+void TestCostoProyecto();
 
 /*
  *  Definición del suite
  */
-CuSuite* CuGetTareasSuite(void);
+void CrearTareasSuite(void);
 
 #endif /* TAREATEST_H_ */
